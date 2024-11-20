@@ -1,5 +1,10 @@
 import './style.css';
-import { test } from "./test.js"
+import { getWeather } from "./get-weather.js"
+import { getGif } from "./get-gif"
 
 console.log("we're so back, baby");
-test();
+
+export const city = "philadelphia, pa"
+
+getWeather(city);
+console.log("HEY " + getGif("partially cloudy"));
