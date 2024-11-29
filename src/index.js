@@ -1,10 +1,21 @@
 import './style.css';
-import { getWeather } from "./get-weather.js"
-import { getGif } from "./get-gif"
+import { getForecast, getWeather } from "./get-weather.js"
+import { apiData } from './api'
+import { render } from "./DOM"
 
-console.log("we're so back, baby");
+const location = "philadelphia"
+const day = 0;
 
-export const city = "philadelphia, pa"
 
-getWeather(city);
-console.log("HEY " + getGif("partially cloudy"));
+// apiData.getData(location, day);
+apiData.weekArray(location, day);
+render.displayBox();
+
+
+// apiData.printData(location);
+// getForecast(location);
+// getWeather(city);
+
+
+let forecastBox = document.getElementById('forecast');
+
