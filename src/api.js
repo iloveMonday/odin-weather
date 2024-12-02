@@ -41,22 +41,34 @@ export const apiData = (() => {
                     getWeekday(data.days[day].datetime)
                 );
                 week.push(dayObj);
-                console.log(week);
+                // console.log(week);
                 return dayObj
         })
+        // .then(() => {
+        //     console.log(week[3]);
+        // })
     }
 
-    function weekArray(location, day){
+    async function weekArray(location, day){
         for (let i=day; i<day+5; i++){
             getData(location, i)
         }
-        // console.log(week)
         return week;
     }
 
     function getWeek(){
         return week;
     }
+
+
+    function sendIt(location, day){
+        weekArray(location, day)
+        .then((week) => {
+            console.log(week)
+            render.displayBox(week);
+        })
+    }
+
 
 
     function getWeekday(obj){
@@ -118,5 +130,5 @@ export const apiData = (() => {
 
 
 
-    return { fetchData, getData, returnWeatherData, weekArray, getWeek }
+    return { fetchData, getData, returnWeatherData, weekArray, getWeek, sendIt }
 })();
