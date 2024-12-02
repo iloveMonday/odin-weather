@@ -1,4 +1,5 @@
 import { apiData } from './api'
+// import {  } './icons'
 
 export const render = (() => {
 
@@ -14,8 +15,8 @@ export const render = (() => {
         city.innerHTML = data.location.city;
         temp.innerHTML = data.current.temp;
         condition.innerHTML = data.current.conditions;
-        high.innerHTML = `H: ${data.week[0].tempmax}`;
-        low.innerHTML = `L: ${data.week[0].tempmin}`;
+        high.innerHTML = `High: ${data.week[0].tempmax}`;
+        low.innerHTML = `Low: ${data.week[0].tempmin}`;
 
 
         //WEEKLY FORECAST
@@ -24,9 +25,25 @@ export const render = (() => {
         for (let i=0; i<data.week.length; i++){
             let newDay = document.createElement("div")
             newDay.className = "day-card";
+
             let weekday = document.createElement("h3");
+            let icon = document.createElement("img");
+            let high = document.createElement("h3");
+            let low = document.createElement("h3")
+
             weekday.innerHTML = data.week[i].weekday;
+            weekday.className = "weekday-name";
+            icon.src = `../src/icons/${data.week[i].icon}.svg`
+            icon.className = "forecast-icon";
+            high.innerHTML = `H: ${data.week[i].tempmax}`;
+            high.className = "forecast-high";
+            low.innerHTML = `L: ${data.week[i].tempmin}`;
+            low.className = "forecast-low";
+
             newDay.appendChild(weekday);
+            newDay.appendChild(icon);
+            newDay.appendChild(high);
+            newDay.appendChild(low);
             weekBox.append(newDay);
         }
 
