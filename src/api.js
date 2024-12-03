@@ -1,74 +1,36 @@
 import { render } from './DOM'
 
 export const apiData = (() => {
-    const apiKey = "XHQ2FS7MCXRK4Y5U8MFGWP8RV";
+    
 
-    async function fetchData(location){
+    async function getData(location, fah){
+        let isFah = fah;
+
+        if (!location){
+            throw new Error("need city!")
+        }
         try{
+            const apiKey = "XHQ2FS7MCXRK4Y5U8MFGWP8RV";
             const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=${apiKey}`, 
             { mode: "cors" });
             const data = await response.json();
-            // console.log(data);
-            return data;
+            console.log(data);
+            const processedData = returnWeatherData(data);
+            console.log(processedData);
+            if (processedData) {
+                if (isFah){
+                render.displayBox(processedData, true)}
+                else{
+                    render.displayBox(processedData, false)
+                };
+            }
+            return processedData;
         }
         catch(err){
             console.log("OPPS, you got a " + err);
+            return null;
         }
     }
-
-
-    const week = [];
-
-
-    function getData(location, day){
-        fetchData(location)
-        .then((data) =>{
-            const dayObj = returnWeatherData(
-                    data.days[day].temp,
-                    data.days[day].description,
-                    data.days[day].datetime,
-                    data.days[day].datetimeEpoch,
-                    data.resolvedAddress,
-                    data.days[day].tempmax,
-                    data.days[day].tempmin,
-                    data.days[day].windspeed,
-                    data.days[day].pressure,
-                    data.days[day].humidity,
-                    data.days[day].uvindex,
-                    data.days[day].sunrise,
-                    data.days[day].sunset,
-                    data.days[day].icon,
-                    getWeekday(data.days[day].datetime)
-                );
-                week.push(dayObj);
-                // console.log(week);
-                return dayObj
-        })
-        // .then(() => {
-        //     console.log(week[3]);
-        // })
-    }
-
-    async function weekArray(location, day){
-        for (let i=day; i<day+5; i++){
-            getData(location, i)
-        }
-        return week;
-    }
-
-    function getWeek(){
-        return week;
-    }
-
-
-    function sendIt(location, day){
-        weekArray(location, day)
-        .then((week) => {
-            console.log(week)
-            render.displayBox(week);
-        })
-    }
-
 
 
     function getWeekday(obj){
@@ -91,44 +53,51 @@ export const apiData = (() => {
     }
 
 
-    function returnWeatherData(
-        temperature,
-        description,
-        dateTime,
-        time,
-        location,
-        tempmax,
-        tempmin,
-        wind,
-        pressure,
-        humidity,
-        uvindex,
-        sunrise,
-        sunset,
-        icon,
-        weekday
-    ) {
-        return {temperature,
-            description,
-            dateTime,
-            time,
-            location,
-            tempmax,
-            tempmin,
-            wind,
-            pressure,
-            humidity,
-            uvindex,
-            sunrise,
-            sunset,
-            icon,
-            weekday};
+
+    function fahrenheitToCelsius(fahrenheit) {
+        const celsius = ((fahrenheit - 32) * 5/9).toFixed(0);
+        return celsius;
+      }
+
+    
+
+    function returnWeatherData(weatherData) {
+        if (!weatherData) return null;
+
+        const current = weatherData.currentConditions;
+
+        return {
+            location:{
+                city: weatherData.resolvedAddress,
+                timezone: weatherData.timezone,
+            },
+            current: {
+                day: 'Today',
+                temp: (current.temp).toFixed(0),
+                tempcel: fahrenheitToCelsius(current.temp),
+                conditions: current.conditions,
+                icon: current.icon,
+                precipprob: current.precipprob,
+                windspeed: current.windspeed,
+                description: weatherData.description,
+                humidity: current.humidity,
+                sunrise: current.sunrise,
+                sunset: current.sunset,
+            },
+            week: weatherData.days.slice(0, 5).map(day =>({
+                weekday: getWeekday(day.datetime),
+                datetime: day.datetime,
+                tempmax: (day.tempmax).toFixed(0),
+                tempmin: (day.tempmin).toFixed(0),
+                tempmaxcel: fahrenheitToCelsius(day.tempmax),
+                tempmincel: fahrenheitToCelsius(day.tempmin),
+                conditions: day.conditions,
+                icon: day.icon,
+            })),
+            lastUpdated: current.datetime,
+        };
     };
 
 
-
-
-
-
-    return { fetchData, getData, returnWeatherData, weekArray, getWeek, sendIt }
+    return { getData, returnWeatherData, }
 })();
