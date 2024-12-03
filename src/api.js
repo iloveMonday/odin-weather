@@ -19,7 +19,7 @@ export const apiData = (() => {
             console.log(processedData);
             if (processedData) {
                 if (isFah){
-                render.displayBox(processedData, true)}
+                    render.displayBox(processedData, true)}
                 else{
                     render.displayBox(processedData, false)
                 };

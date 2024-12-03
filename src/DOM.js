@@ -1,6 +1,3 @@
-import { apiData } from "./api";
-// import {  } './icons'
-
 export const render = (() => {
   function displayBox(data, fah) {
     let isFah = fah;
@@ -13,14 +10,25 @@ export const render = (() => {
     const low = document.getElementById("low");
     const body = document.getElementById("body");
     const tempBox = document.getElementById("temp-box");
+    const desc = document.getElementById("desc");
+    const updated = document.getElementById("updated");
+    const prec = document.getElementById("prec");
+    const hum = document.getElementById("humid");
+    const wind = document.getElementById("wind");
+
 
     city.innerHTML = data.location.city;
-    // temp.innerHTML = data.current.temp;
     condition.innerHTML = data.current.conditions;
-    high.innerHTML = `High: ${data.week[0].tempmax}`;
-    low.innerHTML = `Low: ${data.week[0].tempmin}`;
+    high.innerHTML = `High: ${data.week[0].tempmax}°`;
+    low.innerHTML = `Low: ${data.week[0].tempmin}°`;
+    desc.innerHTML = data.current.description;
     // body.style.backgroundImage = `url(../src/color-icons/${data.current.icon}.svg)`;
     tempBox.style.backgroundImage = `url(../src/color-icons/${data.current.icon}.svg)`;
+    updated.innerHTML = `Last Updated at ${data.lastUpdated}`;
+    prec.innerHTML = `Precipitation: ${data.current.precipprob}%`;
+    console.log(data.current.precipprob);
+    hum.innerHTML = `Humidity: ${data.current.humidity}%`;
+    wind.innerHTML = `Wind: ${data.current.windspeed}mph`;
 
     if (isFah) {
       temp.innerHTML = data.current.temp;

@@ -4,13 +4,14 @@ import { getForecast, getWeather } from "./get-weather.js"
 import { apiData } from './api';
 import { render } from "./DOM"
 
-const location = "philadelphia";
+let location = "philadelphia";
 
 
 apiData.getData(location, true);
 
 const celButton = document.getElementById("cel");
 const farButton = document.getElementById("far");
+const submit = document.getElementById("submit");
 
 celButton.addEventListener("click", () => {
   console.log("celcior!");
@@ -25,3 +26,10 @@ farButton.addEventListener("click", () => {
   celButton.classList.remove("bold");
   apiData.getData(location, true);
 });
+
+submit.addEventListener("click", () => {
+    let input = document.getElementById("city-input").value;
+    location = input;
+    console.log(input);
+    apiData.getData(location, true);
+  });
