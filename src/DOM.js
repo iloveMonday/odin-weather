@@ -20,7 +20,8 @@ export const render = (() => {
     city.innerHTML = data.location.city;
     condition.innerHTML = data.current.conditions;
     desc.innerHTML = data.current.description;
-    tempBox.style.backgroundImage = `url(../src/color-icons/${data.current.icon}.svg)`;
+    // tempBox.style.backgroundImage = `url(../src/color-icons/${data.current.icon}.svg)`;
+    tempBox.style.backgroundImage = `url(../dist/color-icons/${data.current.icon}.svg)`;
     updated.innerHTML = `Last Updated at ${data.lastUpdated}`;
     prec.innerHTML = `Precipitation: ${data.current.precipprob}%`;
     hum.innerHTML = `Humidity: ${data.current.humidity}%`;
@@ -53,7 +54,8 @@ export const render = (() => {
 
       weekday.innerHTML = data.week[i].weekday;
       weekday.className = "weekday-name";
-      icon.src = `../src/icons/${data.week[i].icon}.svg`;
+      // icon.src = `../src/icons/${data.week[i].icon}.svg`;
+      icon.src = `../dist/icons/${data.week[i].icon}.svg`;
       icon.className = "forecast-icon";
       slash.innerHTML = "|"
       high.className = "forecast-high";

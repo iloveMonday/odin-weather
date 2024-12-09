@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -32,6 +33,12 @@ module.exports = {
         filename: 'index.html',
         inject: 'head',
         scriptLoading: 'defer'
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/color-icons', to: 'color-icons' } ,
+        { from: 'src/icons', to: 'icons' }
+      ]
     })
   ]
 };
