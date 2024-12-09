@@ -23,6 +23,10 @@ h1{
     font-size: 5rem;
 }
 
+h2{
+    margin: 2px;
+}
+
 .bold{
     font-weight: bold;
 }
@@ -32,7 +36,9 @@ h1{
 }
 
 #city-input{
-
+    border: 2px solid #011b06;
+    border-radius: 4px;
+    text-align: center;
 }
 
 #city-label{
@@ -54,6 +60,11 @@ h1{
     direction: row;
     align-items: center;
     gap: 10px;
+}
+
+#desc{
+    display: flex;
+    justify-content: center;
 }
 
 #f-c{
@@ -166,6 +177,7 @@ h1{
     background-color: rgb(151, 55, 241);
     display: flex;
     flex-direction: column;
+    width: 50%;
     align-items: center;
     margin: 5px;
     box-shadow: 25px 25px 5px 0px rgba(0,0,0,0.75);

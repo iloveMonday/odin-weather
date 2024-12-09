@@ -84,7 +84,7 @@ export const apiData = (() => {
                 sunrise: current.sunrise,
                 sunset: current.sunset,
             },
-            week: weatherData.days.slice(0, 5).map(day =>({
+            week: weatherData.days.slice(0, 7).map(day =>({
                 weekday: getWeekday(day.datetime),
                 datetime: day.datetime,
                 tempmax: (day.tempmax).toFixed(0),

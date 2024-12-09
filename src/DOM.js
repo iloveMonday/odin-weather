@@ -19,28 +19,29 @@ export const render = (() => {
 
     city.innerHTML = data.location.city;
     condition.innerHTML = data.current.conditions;
-    high.innerHTML = `High: ${data.week[0].tempmax}°`;
-    low.innerHTML = `Low: ${data.week[0].tempmin}°`;
     desc.innerHTML = data.current.description;
-    // body.style.backgroundImage = `url(../src/color-icons/${data.current.icon}.svg)`;
     tempBox.style.backgroundImage = `url(../src/color-icons/${data.current.icon}.svg)`;
     updated.innerHTML = `Last Updated at ${data.lastUpdated}`;
     prec.innerHTML = `Precipitation: ${data.current.precipprob}%`;
-    console.log(data.current.precipprob);
     hum.innerHTML = `Humidity: ${data.current.humidity}%`;
     wind.innerHTML = `Wind: ${data.current.windspeed}mph`;
 
     if (isFah) {
       temp.innerHTML = data.current.temp;
+      high.innerHTML = `High: ${data.week[0].tempmax}°`;
+      low.innerHTML = `Low: ${data.week[0].tempmin}°`;
+
     } else {
       temp.innerHTML = data.current.tempcel;
+      high.innerHTML = `High: ${data.week[0].tempmaxcel}°`;
+      low.innerHTML = `Low: ${data.week[0].tempmincel}°`;
     }
 
     //WEEKLY FORECAST
     const weekBox = document.getElementById("week-box");
     weekBox.innerHTML = "";
 
-    for (let i = 0; i < data.week.length; i++) {
+    for (let i = 2; i < data.week.length; i++) {
       let newDay = document.createElement("div");
       newDay.className = "day-card";
 
