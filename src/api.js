@@ -72,7 +72,7 @@ export const apiData = (() => {
                 timezone: weatherData.timezone,
             },
             current: {
-                day: 'Today',
+                day: 'TODAY',
                 temp: (current.temp).toFixed(0),
                 tempcel: fahrenheitToCelsius(current.temp),
                 conditions: current.conditions,
