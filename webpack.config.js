@@ -1,3 +1,4 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -24,4 +25,13 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+        template: './src/index.ejs',
+        title: "The Weatherman",
+        filename: 'index.html',
+        inject: 'head',
+        scriptLoading: 'defer'
+    })
+  ]
 };
